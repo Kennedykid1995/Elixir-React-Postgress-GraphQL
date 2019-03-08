@@ -216,4 +216,42 @@ defmodule M do
             loop(max - 1, min)
         end
     end  
+
+    #Emun
+
+    def enum do
+        do_enum()
+    end 
+
+    def do_enum do
+        IO.puts "Even list: #{Enum.all?([1,2,3], fn(n) -> rem(n, 2) == 0 end)}"
+        
+        IO.puts "Even list: #{Enum.any?([1,2,3], fn(n) -> rem(n, 2) == 0 end)}"
+
+        Enum.each([1,2,3], fn(n) -> IO.puts n end)
+
+        dbl_list = Enum.map([1,2,3], fn(n) -> n * 2 end)
+        IO.inspect dbl_list
+
+        sum_vals = Enum.reduce([1,2,3], fn(n, sum) -> n + sum end)
+        IO.puts "Sum : #{sum_vals}"
+        IO.inspect Enum.uniq([1,2,2])
+
+    end
+
+    #list comprehensions
+
+    def comp do
+        do_comp()
+    end
+
+    def do_comp do
+        db_list = for n <- [1,2,3], do: n * 2
+        IO.inspect db_list
+
+        even_list = for n <- [1,2,3,4], rem(n, 2) == 0, do: n
+        IO.inspect even_list
+
+    end
+
 end
