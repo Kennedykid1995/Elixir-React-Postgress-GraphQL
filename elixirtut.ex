@@ -2,6 +2,7 @@ defmodule M do
     def main do
     do_stuff()
     end
+
     def do_stuff do
     age = 16
     # decision making tools
@@ -34,9 +35,7 @@ defmodule M do
         _ -> IO.puts "default"
     end
 
-    IO.puts "Ternary : #{if age > 18, do: "can vote", else: "Can't vote"}"
-
-    end 
+    IO.puts "Ternary : #{if age > 18, do: "can vote", else: "Can't vote"}" 
 
     # Tuples
     my_stats = {175, 6.25, :Derek}
@@ -59,7 +58,162 @@ defmodule M do
 
     IO.puts "Weight : #{weight}"
 
+    # Lists
+
+    list1 = [1,2,3]
+    list2 = [4,5,6]
+
+    list3 = list1 ++ list2
+
+    list4 = list3 -- list1
+
+    IO.puts 6 in list4
+
+    [head | tail] = list3
+    IO.puts "Head : #{head}"
+
+    IO.write "Tail : "
+    IO.inspect tail
+
+    IO.inspect [97, 98], char_lists: :as_lists
+
+    Enum.each tail, fn item -> 
+        IO.puts item
+    end
+
+    words = ["Random", "words", "in", "a", "list"]
+
+    Enum.each words, fn word-> 
+        IO.puts word
+    end    
+
+    display_list(words)
 
 
+    IO.puts display_list(List.delete(words, "Random"))
+    IO.puts display_list(List.delete_at(words, 2))
+    IO.puts display_list(List.insert_at(words, 4, "Yeah"))
+    IO.puts List.first(words)
+    IO.puts List.last(words)
 
+    char_stats = [name: "Derek", height: 6.25]
+
+
+    end
+
+    def display_list([word|words]) do
+        IO.puts word
+        display_list(words)
+    end
+    def display_list([]), do: nil
+
+    # Maps
+
+    def other do
+        do_other_stuff
+    end
+
+    def do_other_stuff do
+        capitals = %{"Alabama" => "Montgomery",
+         "Alaska" => "Juneau", "Arizona" => "Pheonix"}
+
+         IO.puts "Capital of Alaska is #{capitals["Alaska"]}"
+
+         capitals2 = %{alabama:  "Montgomery",
+         alaska: "Juneau", arizona: "Pheonix"}
+
+         IO.puts "Capital of Arizona is #{capitals2.arizona}"
+
+         capitals3 = Dict.put_new(capitals, "Arkansas" , "Little Rock")
+
+    end
+
+    #Pattern Matching
+
+    def pattern do
+        do_pattern()
+    end
+
+    def do_pattern do
+        [length, width] = [20, 30]
+        IO.puts "Width : #{width}"
+
+        [_,[_, a] ] = [20, [30, 40]]
+        IO.puts "Get num: : #{a}" 
+    end
+    #anon functions 
+
+    def anon do 
+        do_anon()
+    end
+
+    def do_anon do
+        get_sum = fn (x, y) -> x + y end
+
+        IO.puts "5 + 5 = #{get_sum.(5,5)}"
+
+        get_less = &(&1 - &2)
+
+        IO.puts "7 - 6 = #{get_less.(7,6)}"
+
+        add_sum = fn
+        {x, y} -> IO.puts "#{x} + #{y} = #{x + y}"
+        {x, y, z} -> IO.puts "#{x} + #{y} + #{z} = #{x + y + z}"
+        end
+
+        add_sum.({1,2})
+        add_sum.({1,2,3})
+
+        IO.puts do_it()
+    end 
+
+    def do_it(x \\ 1, y \\ 1) do
+        x + y
+    end
+    
+    #recursion
+
+    def res do
+        do_res()
+    end
+
+    def do_res do
+        IO.puts "Factorial of 4 : #{factorial(4)}"
+    end
+
+    def factorial(num) do
+        if num <= 1 do
+            1
+        else    
+            result = num * factorial(num - 1)
+            result
+        end
+    end
+
+    #looping
+
+    def loop do
+        do_loop()
+    end 
+
+    def do_loop do
+        IO.puts "Sum : #{sum([1,2,3])}"
+
+        loop(5,1)
+    end
+
+    def sum([]), do: 0
+
+    def sum([h|t]), do: h + sum(t)
+
+    def loop(0, _), do: nil
+
+    def loop(max, min) do
+        if max < min do
+            loop(0, min)
+        else    
+            IO.puts "Num: #{max}"
+            loop(max - 1, min)
+        end
+    end  
 end
