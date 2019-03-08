@@ -251,6 +251,36 @@ defmodule M do
 
         even_list = for n <- [1,2,3,4], rem(n, 2) == 0, do: n
         IO.inspect even_list
+        
+
+        err = try do 
+            5 / 0
+            rescue
+            ArithmeticError -> "Can't Divide by 0"
+            end
+
+            IO.puts err
+    end
+    #concurrency
+
+    def con do
+        do_con()
+    end
+
+    def do_con do
+        spawn(fn() -> loop(50, 1) end)
+        spawn(fn() -> loop(100, 50) end)
+
+        send(self(), {:french, "bob"})
+
+        receive do
+            {:german, name} -> IO.puts "Guten Tag #{name}"
+            {:french, name} -> IO.puts "Bonjour #{name}"
+            {:english, name} -> IO.puts "Hello #{name}"
+
+            after
+            500 -> IO.puts "Time up"
+        end
 
     end
 
