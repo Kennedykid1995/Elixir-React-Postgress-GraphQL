@@ -17,6 +17,7 @@ defmodule HelloWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/hello/:data", HelloController, :message
   end
 
   # Other scopes may use custom stacks.
